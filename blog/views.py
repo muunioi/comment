@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Blog
+from .models import Blog, Comment
 from .forms import BlogForm, CommentForm
 
 
@@ -47,3 +47,29 @@ def delete(request, pk):
     blog = Blog.objects.get(pk=pk)
     blog.delete()
     return redirect('home')
+
+
+def comment_update(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    blog = get_object_or_404(Blog, pk=comment.blog.id)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('/blog/'+str(blog.id))
+
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'blog/comment_update.html', {'form':form})
+
+def comment_delete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    blog = get_object_or_404(Blog, pk=comment.blog.id)
+
+    if request.method == 'POST':
+        comment.delete()
+        return redirect('/blog/'+str(blog.id))
+
+    else:
+        return render(request, 'blog/comment_delete.html', {'object':comment})
