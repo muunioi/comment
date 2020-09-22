@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+{% load socialaccount %}
+{% providers_media_js %}
+
+<h1 class="login">🔒Login</h1>
+
+<form method="POST" action="{% url 'login' %}">
+{% csrf_token %}
+    USERNAME :
+    <br>
+    <input name="username" type="text" value="">
+    <br>
+    PASSWORD :
+    <br>
+    <input name="password" type="password" value="">
+    <br>
+    <br>
+    <div>
+        <input type="button" value="Login">
+        <input type="button" value="Signup" onclick="location.href='{% url 'signup' %}'">
+    </div>
+<h1><a class="naver_login" href="{% provider_login_url 'naver' %}">네이버로 로그인하기</a></h1>
+
+</form>
+
+{% endblock %}

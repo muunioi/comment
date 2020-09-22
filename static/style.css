@@ -206,3 +206,18 @@ hr {
   padding-top: 1rem;
   border: outset #44b78b;
 }
+.login {
+  text-align: center;
+  margin: 30px;
+}
+
+.naver_login {
+  color: #00290e;
+  font-size: 15px;
+  text-decoration: none;
+  background-color: #0d963a;
+  border: 1px solid #44b78b;
+  border-radius: 5px;
+  font-size: 12pt;
+  padding: 10px;
+}
